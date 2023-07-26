@@ -4,12 +4,14 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include "main.h"
 
 #define MAX_ARGS 10
 
 char *read_input_line();
 void parse_input(char *line, char *args[]);
 void execute_command(char *args[]);
+char* _strtok(char *str, const char *del);
 
 /**
  * main -  main file

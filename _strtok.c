@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "main.h"
 
 /**
  * _strtok -  Splits Strings and returns an array
@@ -10,22 +11,28 @@
  * Return: Returns a String.
  */
 
-char *_strtok(char *str, char *del)
+char *_strtok(char *str, const char *del)
 {
-	int count = 0;
-	char *token = NULL;
+	static char *next_token;
 
-	while (str[count] != '\0')
+	if (str)
 	{
-
-		if (str[count] == *del)
-		{
-			token = malloc(sizeof(char) * (count + 1));
-			strncpy(token, str, count);
-			token[count] = '\0';
-
-		}
-		count++;
+		next_token = str;
 	}
-	return (token);
+	if (!next_token)
+	{
+		return (NULL);
+	}
+	str = next_token;
+	while (*next_token)
+	{
+		if (strchr(del, *next_token))
+		{
+			*next_token++ = '\0';
+			break;
+		}
+		next_token++;
+	}
+	return (*str ? str : NULL);
 }
+
